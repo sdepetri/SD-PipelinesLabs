@@ -1,0 +1,21 @@
+version: 0.1
+
+phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+    # Logging in to Amazon ECR
+      - echo "Logging in to amazon ECR..."
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 253490770873.dkr.ecr.us-east-2.amazonaws.com
+      
+  build:
+    on-failure: ABORT
+    commands:
+    # Building docker images
+      - echo "Building images..."
+      - docker build -t sd-pipeline-test .
+      - echo "tagueando"
+      - docker tag sd-pipeline-test:latest 253490770873.dkr.ecr.us-east-2.amazonaws.com/sd-pipeline-test:latest
+    # Pushing docker images
+  post_build:
+      - docker push 253490770873.dkr.ecr.us-east-2.amazonaws.com/sd-pipeline-test:latest

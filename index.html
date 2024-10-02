@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Primer Contenedor Levantado!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .message {
+            font-size: 3em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        @keyframes pop-in {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            animation: confetti 5s ease-in-out infinite;
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🎉</div>
+        <h1>¡Felicidades!</h1>
+        <div class="message">¡LISTOOO...!!!</div>
+        <div class="message">¡LEVANTE MI PRIMER CONTENEDOR...!!!</div>
+    </div>
+
+    <script>
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+
+        setInterval(createConfetti, 100);
+    </script>
+</body>
+</html>
