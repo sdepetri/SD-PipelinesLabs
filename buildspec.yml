@@ -18,4 +18,9 @@ phases:
       - docker tag sd-pipeline-test:latest 253490770873.dkr.ecr.us-east-2.amazonaws.com/sd-pipeline-test:latest
     # Pushing docker images
   post_build:
+     commands:
       - docker push 253490770873.dkr.ecr.us-east-2.amazonaws.com/sd-pipeline-test:latest
+  artifacts:
+    files:
+      - '**/*'
+    discard-paths: yes
