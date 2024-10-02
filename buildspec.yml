@@ -20,7 +20,7 @@ phases:
   post_build:
      commands:
       - docker push 253490770873.dkr.ecr.us-east-2.amazonaws.com/sd-pipeline-test:latest
-  artifacts:
-    files:
-      - '**/*'
-    discard-paths: yes
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
