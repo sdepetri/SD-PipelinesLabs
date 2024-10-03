@@ -1,0 +1,31 @@
+name: Deploy to S3 and Invalidate CloudFront CICD Week
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+        id-token: write
+        contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::253490770873:role/sd-github-role
+          aws-region: us-east-2
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync . s3://sd-bucket-pipeline-actions --delete
+
+      - name: Create CloudFront Invalidation
+        run: |
+          aws cloudfront create-invalidation --distribution-id EBBA7EKFSAEWH --paths "/*"
